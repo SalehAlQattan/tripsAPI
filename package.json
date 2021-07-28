@@ -1,0 +1,14 @@
+{
+  "name": "tripsAPI",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": "https://github.com/SalehAlQattan/tripsAPI.git",
+  "author": "salehalqattan <salehalqattan@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
