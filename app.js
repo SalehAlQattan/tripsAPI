@@ -1,14 +1,15 @@
 const express = require('express');
-const app = express();
 const passport = require('passport');
 const { localStrategy } = require('./middleware/passport');
 const { jwtStrategy } = require('./middleware/passport');
+const app = express();
 
 // importing db
 const db = require('./db/models');
 
 // import routes
 const userRoutes = require('./API/user/routes');
+const tripRoutes = require("./API/trip/routes")
 
 // middledwares
 app.use(passport.initialize());
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // routes
 app.use(userRoutes);
+app.use("/trips", tripRoutes)
 
 app.use((err, req, res, next) => {
   res
