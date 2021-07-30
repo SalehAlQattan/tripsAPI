@@ -1,9 +1,9 @@
-// importing Model
-const { User } = require('../../db/models');
-// pack
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { JWT_EXPIRATION_MS, JWT_SECERT } = require('../../config/keys');
+//library imports
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { JWT_EXPIRATION_MS, JWT_SECERT } = require("../../config/keys");
+//databases
+const { User } = require("../../db/models");
 
 exports.signup = async (req, res, next) => {
   const { password } = req.body;
@@ -13,7 +13,7 @@ exports.signup = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRound);
     req.body.password = hashedPassword;
     const newUser = await User.create(req.body);
-    res.status(201).json({ message: 'User Created Successfully!' });
+    res.status(201).json({ message: "User Created Successfully!" });
   } catch (error) {
     next(error);
   }

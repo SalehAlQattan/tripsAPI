@@ -1,17 +1,17 @@
-/* Libraries */
+//library imports
 const express = require("express");
 const multer = require("multer");
-/* Controllers */
+//components
 const { tripFetch } = require("./controllers");
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination: "./media",
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}${file.originalname}`)
-    }
-})
+  destination: "./media",
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}${file.originalname}`);
+  },
+});
 
 /* Read Routes */
 router.get("/", tripFetch);

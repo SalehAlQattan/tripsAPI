@@ -1,20 +1,19 @@
-// packages
-const express = require('express');
-const passport = require('passport');
-// importing controllers
-const { signup, signin } = require('./controllers');
-// routes
+// library imports
+const express = require("express");
+const passport = require("passport");
+// components
+const { signup, signin } = require("./controllers");
+
 const router = express.Router();
 
 // signup route
-router.post('/signup', signup);
+router.post("/signup", signup);
 
 // signin route
 router.post(
-  '/signin',
-  passport.authenticate('local', { session: false }),
+  "/signin",
+  passport.authenticate("local", { session: false }),
   signin
 );
 
-// exporting the route
 module.exports = router;
