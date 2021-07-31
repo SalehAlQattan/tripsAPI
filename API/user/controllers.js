@@ -13,7 +13,13 @@ exports.signup = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRound);
     req.body.password = hashedPassword;
     const newUser = await User.create(req.body);
-    res.status(201).json({ message: "User Created Successfully!" });
+    const payload = {
+      id: newUser.id,
+      username: newUser.username,
+      exp: Date.now() + JWT_EXPIRATION_MS,
+    };
+    const token = jwt.sign(JSON.stringify(payload), JWT_SECERT);
+    res.json({ token })
   } catch (error) {
     next(error);
   }
