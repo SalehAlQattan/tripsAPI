@@ -19,7 +19,7 @@ exports.signup = async (req, res, next) => {
       exp: Date.now() + JWT_EXPIRATION_MS,
     };
     const token = jwt.sign(JSON.stringify(payload), JWT_SECERT);
-    res.json({ token })
+    res.json({ token });
   } catch (error) {
     next(error);
   }
