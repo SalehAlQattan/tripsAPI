@@ -5,9 +5,9 @@ const { Trip } = require("../../db/models");
 exports.fetchTrip = async (tripId, next) => {
   try {
     const trip = await Trip.findByPk(tripId);
-    return trip
+    return trip;
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
@@ -33,7 +33,6 @@ exports.tripCreate = async (req, res, next) => {
   }
 };
 
-
 exports.deleteTrip = async (req, res, next) => {
   try {
     if (req.user.id === req.trip.userId) {
@@ -41,7 +40,6 @@ exports.deleteTrip = async (req, res, next) => {
       res.status(204).end();
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
-
+};
