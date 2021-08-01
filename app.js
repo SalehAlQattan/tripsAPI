@@ -6,6 +6,7 @@ const { jwtStrategy } = require("./middleware/passport");
 // importing routes
 const userRoutes = require("./API/user/routes");
 const tripRoutes = require("./API/trip/routes");
+const profileRoutes = require("./API/profile/routes");
 // importing db
 const db = require("./db/models");
 
@@ -20,8 +21,8 @@ app.use(express.json());
 // routes
 app.use(userRoutes);
 app.use("/trips", tripRoutes);
-
-app.use("/media", express.static("media"))
+app.use("/media", express.static("media"));
+app.use("/profiles", profileRoutes);
 
 //Middleware: internal server error
 app.use((err, req, res, next) => {
