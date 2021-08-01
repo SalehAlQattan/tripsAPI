@@ -21,6 +21,8 @@ app.use(express.json());
 app.use(userRoutes);
 app.use("/trips", tripRoutes);
 
+app.use("/media", express.static("media"))
+
 //Middleware: internal server error
 app.use((err, req, res, next) => {
   res
