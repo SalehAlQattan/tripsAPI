@@ -22,6 +22,18 @@ exports.tripFetch = async (req, res, next) => {
   }
 };
 
+exports.tripCreate = async (req, res, next) => {
+  try {
+    if (req.file) req.body.image = `http://${req.get("host")}/${req.file.path}`;
+    req.body.userId = req.user.id;
+    const newTrip = await Trip.create(req.body);
+    res.status(201).json(newTrip);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 exports.deleteTrip = async (req, res, next) => {
   try {
     if (req.user.id === req.trip.userId) {
@@ -32,3 +44,4 @@ exports.deleteTrip = async (req, res, next) => {
     next(error)
   }
 }
+
