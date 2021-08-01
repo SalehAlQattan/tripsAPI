@@ -3,9 +3,23 @@ const express = require("express");
 const multer = require("multer");
 const passport = require("passport");
 //components
-const { tripFetch, tripCreate } = require("./controllers");
+const { tripFetch, fetchTrip, deleteTrip, tripCreate } = require("./controllers");
+
 
 const router = express.Router();
+
+/* Middleware that handles fetching */
+router.param("tripId", async (req, res, next, tripId) => {
+  const trip = await fetchTrip(tripId, next)
+  if (trip) {
+    req.trip = trip;
+    next()
+  } else {
+    const error = new Error("trip Not Found");
+    error.status = 404;
+    next(error)
+  }
+})
 
 const storage = multer.diskStorage({
   destination: "./media",
@@ -19,6 +33,7 @@ const upload = multer({ storage });
 //Get trip
 router.get("/", tripFetch);
 
+
 //Create trip
 router.post(
   "/",
@@ -26,5 +41,9 @@ router.post(
   upload.single("image"),
   tripCreate
 );
+
+/* Delete Routes */
+router.delete("/:tripId", passport.authenticate("jwt", { session: false }), deleteTrip);
+
 
 module.exports = router;
