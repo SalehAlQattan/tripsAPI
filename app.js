@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 const run = async () => {
   try {
     // we add {force: true} one time to allow add new colum in DB
-    await db.sequelize.sync({ alter: true });
+    await db.sequelize.sync({ force: true });
     console.log("Database is connected");
     app.listen(8000, () => console.log("App is running on port 8000"));
   } catch (error) {
