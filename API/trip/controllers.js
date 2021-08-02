@@ -1,5 +1,5 @@
 //databases
-const { Trip } = require("../../db/models");
+const { Trip } = require('../../db/models');
 
 /* Find the Trip by Id */
 exports.fetchTrip = async (tripId, next) => {
@@ -14,7 +14,7 @@ exports.fetchTrip = async (tripId, next) => {
 exports.tripFetch = async (req, res, next) => {
   try {
     const trips = await Trip.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt"] },
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
     });
     res.json(trips);
   } catch (error) {
@@ -24,7 +24,7 @@ exports.tripFetch = async (req, res, next) => {
 
 exports.tripCreate = async (req, res, next) => {
   try {
-    if (req.file) req.body.image = `http://${req.get("host")}/${req.file.path}`;
+    if (req.file) req.body.image = `http://${req.get('host')}/${req.file.path}`;
     req.body.userId = req.user.id;
     const newTrip = await Trip.create(req.body);
     res.status(201).json(newTrip);
@@ -33,10 +33,29 @@ exports.tripCreate = async (req, res, next) => {
   }
 };
 
-exports.deleteTrip = async (req, res, next) => {
+exports.updateTrip = async (req, res, next) => {
+  const foundTrip = req.foundTrip;
   try {
-    if (req.user.id === req.trip.userId) {
-      await req.trip.destroy();
+    if (foundTrip.userId === req.user.id) {
+      if (req.file)
+        req.body.image = `http://${req.get('host')}/${req.file.path}`;
+      const updatedTrip = await foundTrip.update(req.body);
+
+      res.json(updatedTrip);
+    } else {
+      const err = new Error('Unauthorized!');
+      err.status = 401;
+      return next(err);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+exports.deleteTrip = async (req, res, next) => {
+  const foundTrip = req.foundTrip;
+  try {
+    if (req.user.id === foundTrip.userId) {
+      await foundTrip.destroy();
       res.status(204).end();
     }
   } catch (error) {
