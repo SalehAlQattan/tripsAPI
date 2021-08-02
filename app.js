@@ -21,6 +21,7 @@ app.use(express.json());
 // routes
 app.use(userRoutes);
 app.use("/trips", tripRoutes);
+// I highly recoomend you add the media folder to .gitigrone
 app.use("/media", express.static("media"));
 app.use("/profiles", profileRoutes);
 
