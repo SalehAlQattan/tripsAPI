@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_EXPIRATION_MS, JWT_SECERT } = require("../../config/keys");
 //databases
-const { User } = require("../../db/models");
+const { User, Profile } = require("../../db/models");
 
 exports.signup = async (req, res, next) => {
   const { password } = req.body;
