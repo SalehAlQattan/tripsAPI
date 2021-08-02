@@ -51,7 +51,6 @@ exports.updateTrip = async (req, res, next) => {
     next(error);
   }
 };
-
 exports.deleteTrip = async (req, res, next) => {
   const foundTrip = req.foundTrip;
   try {

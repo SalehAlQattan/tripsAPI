@@ -26,6 +26,7 @@ router.param('tripId', async (req, res, next, tripId) => {
   }
 });
 
+// Don't you think you can clean the routes file and move all multer things to the middlware folder?
 const storage = multer.diskStorage({
   destination: './media',
   filename: (req, file, cb) => {
