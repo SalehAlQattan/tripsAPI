@@ -10,7 +10,8 @@ const router = express.Router();
 /* Middleware that handles fetching */
 
 /* Read Routes */
-//Create profile
 router.get("/", profileFetch);
+
+/* Todo: Update Profile */
 
 module.exports = router;
