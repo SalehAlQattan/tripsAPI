@@ -48,18 +48,4 @@ exports.signin = async (req, res, next) => {
   res.json({ token });
 };
 
-exports.updateProfile = async (req, res, next) => {
-  try {
-    if (req.user.id === req.profile.id) {
-      if (req.file) req.body.image = `http://${req.get("host")}/${req.file.path}`
-      await req.profile.update(req.body);
-      res.json(req.profile);
-    } else {
-      const error = new Error("Unauthrozied")
-      error.status = 401
-      return next(error)
-    }
-  } catch (error) {
-    next(error)
-  }
-};
+

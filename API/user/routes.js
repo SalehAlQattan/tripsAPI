@@ -3,7 +3,7 @@ const express = require("express");
 const multer = require("multer");
 const passport = require("passport");
 // components
-const { signup, signin, fetchProfile, updateProfile } = require("./controllers");
+const { signup, signin, fetchProfile } = require("./controllers");
 
 const router = express.Router();
 
@@ -38,6 +38,6 @@ router.post(
   signin
 );
 
-router.put("/profiles/:userId", passport.authenticate("jwt", { session: false }), upload.single("image"), updateProfile);
+
 
 module.exports = router;
